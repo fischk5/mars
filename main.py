@@ -34,19 +34,37 @@ def getText(text):
     fontObj = pygame.font.SysFont('helvetica', 16)
     return fontObj.render(text, True, BLACK)
 
+def quitGame():
+    pygame.quit()
+    sys.exit()
+
 def handleEvents(eventQueue):
     for event in eventQueue:
         if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
+            quitGame()
+
+def drawCanvas():
+    # need instructions for how to draw the canvas... a scene?
+    # perhaps the currentImageList populates based on the scene
+    # using a loadScene function
+    currentImageList = ["dirt1.png"]
+    currentImages = []
+    for image in currentImageList:
+        currentImages.append(getImage(image))
+    # also need instructions for what to do with the images once loaded
+    screen = pygame.display.get_surface()
+    screen.fill(WHITE)
+    for image in currentImages:
+        screen.blit(image, (screen.get_width()/2,screen.get_height()/2))
+    pygame.display.update()
+
+    
 
 def initGameLoop():
+    
     while True:
-        MDISP.fill(WHITE)
-
+        drawCanvas()
         handleEvents(pygame.event.get())
-
-        pygame.display.update()
         FPSCLOCK.tick(FPS)
 
 if __name__ == '__main__':
